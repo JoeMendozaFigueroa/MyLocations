@@ -129,7 +129,17 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             updateLabels()
         }
     }
-
+//MARK: - NAVIGATION
+    //This method is for the segue controller that takes you to the tag "Location View Controller"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TagLocation" {
+            let controller = segue.destination as!
+            LocationDetailsViewController
+            controller.coordinate = location!.coordinate
+            controller.placemark = placemark
+        }
+    }
+    
     //MARK: - ACTIONS
     //This is the action method that runs various methods, once you press the "get button" at the bottom of the View Controller
     @IBAction func getLocation() {
