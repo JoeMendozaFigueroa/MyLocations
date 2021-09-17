@@ -8,7 +8,7 @@ import CoreLocation
 import UIKit
 
 class LocationDetailsViewController: UITableViewController {
-    //*/These constant variables are the various items in the "Location Details" View Controller*/
+    //These constant variables are the various items in the "Location Details" View Controller
     @IBOutlet var descriptionTextView: UITextView!
     @IBOutlet var categoryLabel: UILabel!
     @IBOutlet var latitudeLabel: UILabel!
@@ -27,7 +27,7 @@ class LocationDetailsViewController: UITableViewController {
     
     
     //MARK: - ACTIONS
-    /*/This is the method for when a user selects the done button on the tab bar, it revelas the "Tagged" hud display*/
+    //This is the method for when a user selects the done button on the tab bar, it revelas the "Tagged" hud display
     @IBAction func done() {
         guard let mainView = navigationController?.parent?.view
         else { return }
@@ -38,7 +38,7 @@ class LocationDetailsViewController: UITableViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        /*/This constant brings you back to the search location screen after user presses done*/
+        //This constant brings you back to the search location screen after user presses done.
         let delayInSeconds = 0.5
         DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
             hudView.hide()
@@ -49,7 +49,7 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func cancel() {
         navigationController?.popViewController(animated: true)
     }
-    /*/This method is deals with the functionality of the main View Controller*/
+    //This method is deals with the functionality of the main View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
     descriptionTextView.text = ""
@@ -75,7 +75,7 @@ class LocationDetailsViewController: UITableViewController {
     tableView.addGestureRecognizer(gestureRecognizer)
     }
     
-    /*/This method hides the keyboard after you select outside the description textfield*/
+    //This method hides the keyboard after you select outside the description textfield
     @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
         let point = gestureRecognizer.location(in: tableView)
         let indexPath = tableView.indexPathForRow(at: point)
@@ -125,13 +125,13 @@ class LocationDetailsViewController: UITableViewController {
             return formatter
         }()
     
-    /*/This method turns the date integers into a string*/
+    //This method turns the date integers into a string
     func format(date: Date) -> String {
         return dateFormatter.string(from: date)
     }
     
     //MARK: - NAVIGATION
-    /*/This is the method to segue into the "Category Picker" View Controller*/
+    //This is the method to segue into the "Category Picker" View Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickCategory" {
             let controller = segue.destination as! CategoryPickerViewController

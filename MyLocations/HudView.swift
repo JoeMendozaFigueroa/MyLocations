@@ -9,7 +9,7 @@ import UIKit
 
 class HudView: UIView {
     var text = ""
-    //*/This method is for the design of the hud*/
+    //This method is for the design of the hud
     class func hud(inview view: UIView, animated: Bool) -> HudView {
         let hudView = HudView(frame: view.bounds)
         
@@ -21,7 +21,7 @@ class HudView: UIView {
 
         return hudView
     }
-    //*/This method is for the square icon on the hud*/
+    //This method is for the square icon on the hud
     override func draw(_ rect: CGRect) {
         let boxWidth: CGFloat = 96
         let boxHeight: CGFloat = 96
@@ -38,7 +38,7 @@ class HudView: UIView {
         UIColor(white: 0.3, alpha: 0.8).setFill()
         roundedRect.fill()
         
-        //*/This local constant uses the Checkmark Icon in the Assett folder and places it inside the hud*/
+        //This local constant uses the Checkmark Icon in the Assett folder and places it inside the hud
         if let image = UIImage(named: "Checkmark")
         {
             let imagePoint = CGPoint(x: center.x - round(image.size.width / 2),
@@ -47,7 +47,7 @@ class HudView: UIView {
             image.draw(at: imagePoint)
         }
         
-        //*/This local constant places the text inside the hud under the Checkmark Icon*/
+        //This local constant places the text inside the hud under the Checkmark Icon
         let attribs = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
             NSAttributedString.Key.foregroundColor:UIColor.white]
@@ -62,7 +62,7 @@ class HudView: UIView {
     }
     
     //MARK: - HELPER METHODS
-    //*/This method gives a bounce/appear animation to the hud, instead of just appearing*/
+    //This method gives a bounce/appear animation to the hud, instead of just appearing
     func show(animated: Bool) {
         if animated {
             alpha = 0
