@@ -33,6 +33,17 @@ class LocationDetailsViewController: UITableViewController {
         else { return }
         let hudView = HudView.hud(inview: mainView, animated: true)
         hudView.text = "Tagged"
+        afterDelay(0.6) {
+            hudView.hide()
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        //This constant brings you back to the search location screen after user presses done.
+        let delayInSeconds = 0.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+            hudView.hide()
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func cancel() {
@@ -63,6 +74,7 @@ class LocationDetailsViewController: UITableViewController {
     gestureRecognizer.cancelsTouchesInView = false
     tableView.addGestureRecognizer(gestureRecognizer)
     }
+    
     //This method hides the keyboard after you select outside the description textfield
     @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
         let point = gestureRecognizer.location(in: tableView)
@@ -105,6 +117,7 @@ class LocationDetailsViewController: UITableViewController {
         }
         return text
     }
+    
     private let dateFormatter: DateFormatter =
         {let formatter = DateFormatter()
             formatter.dateStyle = .medium
