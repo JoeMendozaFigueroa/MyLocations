@@ -6,10 +6,10 @@
 //
 
 import UIKit
-//This is the class for the Category View Controller
+//*/This is the class for the Category View Controller*/
 class CategoryPickerViewController: UITableViewController {
     var selectedCategoryName = ""
-    //This is the constant for the Category Array
+    //*/This is the constant for the Category Array*/
     let categories = [
         "No Category",
         "Apple Store",
@@ -28,7 +28,7 @@ class CategoryPickerViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //This is the local variable to fill in the cells inside the table view for the array
+        //*/This is the local variable to fill in the cells inside the table view for the array*/
         for i in 0..<categories.count {
             if categories[i] == selectedCategoryName {
                 selectedIndexPath = IndexPath(row: i, section: 0)
@@ -38,11 +38,11 @@ class CategoryPickerViewController: UITableViewController {
     }
     
     //MARK: - TABLE VIEW DELEGATES
-    //This is the method to recycle rows for the array
+    //*/This is the method to recycle rows for the array*/
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
-    //This is the method to identify the reusable cells and fill them in with the array
+    //*/This is the method to identify the reusable cells and fill them in with the array*/
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
             for: indexPath)
@@ -57,7 +57,7 @@ class CategoryPickerViewController: UITableViewController {
         }
         return cell
     }
-    //This is the method to show a checkmark when a category cell is selected
+    //*/This is the method to show a checkmark when a category cell is selected*/
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row != selectedIndexPath.row {
             if let newCell = tableView.cellForRow(at: indexPath) {
@@ -71,7 +71,7 @@ class CategoryPickerViewController: UITableViewController {
     }
     
     //MARK: - NAVIGATION
-    //This method selects a Category and changes the "Category Detail Label" to the selected choice
+    //*/This method selects a Category and changes the "Category Detail Label" to the selected choice*/
     override func prepare( for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickedCategory" {
             let cell = sender as! UITableViewCell

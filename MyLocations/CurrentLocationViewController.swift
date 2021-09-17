@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
-    //These are the variables that Identify the various buttons and labels on the View Controller
+    //*/These are the variables that Identify the various buttons and labels on the View Controller*/
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var latitudeLabel: UILabel!
     @IBOutlet var longitudeLabel: UILabel!
@@ -30,7 +30,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateLabels()//This shows the "messageLabel" text
+        updateLabels()//*/This shows the "messageLabel" text*/
     }
     
     //MARK: - VIEW
@@ -45,7 +45,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     //MARK: - LABEL DETAILS
-    //This method takes the location text and replaces the text of the "Longitutde & Latitude" Text Labels
+    //*/This method takes the location text and replaces the text of the "Longitutde & Latitude" Text Labels*/
     func updateLabels() {
         if let location = location {
             latitudeLabel.text = String(
@@ -69,7 +69,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             addressLabel.text = ""
             tagButton.isHidden = true
             
-            // This method of grouped booleans is for the "message label" at the top of the View Controller
+            //*/ This method of grouped booleans is for the "message label" at the top of the View Controller*/
             let statusMessage: String
             if let error = lastLocationError as NSError? {
                 if error.domain == kCLErrorDomain && error.code == CLError.denied.rawValue {
@@ -88,7 +88,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         }
         configureGetButton()
     }
-    //This method changes the "Get Button" label, when the App is searching for a location
+    //*/This method changes the "Get Button" label, when the App is searching for a location*/
     func configureGetButton() {
         if updatingLocation {
             getButton.setTitle("Stop", for: .normal)
@@ -96,7 +96,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             getButton.setTitle("Get My Location", for: .normal)
         }
     }
-    //This is the method which for the layout of the physical address, to be placed inside the "address label"
+    //*/This is the method which for the layout of the physical address, to be placed inside the "address label"*/
     func string(from placemark: CLPlacemark) -> String {
         var line1 = ""
         if let tmp = placemark.subThoroughfare {
@@ -130,7 +130,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         }
     }
 //MARK: - NAVIGATION
-    //This method is for the segue controller that takes you to the tag "Location View Controller"
+    //*/This method is for the segue controller that takes you to the tag "Location View Controller"*/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TagLocation" {
             let controller = segue.destination as!
@@ -141,15 +141,15 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     //MARK: - ACTIONS
-    //This is the action method that runs various methods, once you press the "get button" at the bottom of the View Controller
+    //*/This is the action method that runs various methods, once you press the "get button" at the bottom of the View Controller*/
     @IBAction func getLocation() {
-        //This constant & boolean asks the user for otherization to use their current location
+        //*/This constant & boolean asks the user for otherization to use their current location*/
         let authStatus = locationManager.authorizationStatus
         if authStatus == .notDetermined {
         locationManager.requestWhenInUseAuthorization()
         return
         }
-        //This boolean will be called if user denise the pop-up screen for authorization to use their location
+        //*/This boolean will be called if user denise the pop-up screen for authorization to use their location*/
         if authStatus == .denied || authStatus == .restricted {
             showLocationServicesDeniedAler()
         }
@@ -179,7 +179,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         stopLocationManager()
         updateLabels()
     }
-    //This method is to convert the longitude & latitudes into a physical address. It has various booleans to porvide/calculate a more accurate location search
+    //*/This method is to convert the longitude & latitudes into a physical address. It has various booleans to porvide/calculate a more accurate location search*/
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         let newLocation = locations.last!
@@ -203,7 +203,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
                 print("*** We're done!")
                 stopLocationManager()
             }
-            //This bool is for when you stop the location search
+            //*/This bool is for when you stop the location search*/
             if distance > 0 {
                 performingReverseGeocoding = false
             }
@@ -239,7 +239,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         } 
     }
     
-    //This method is for when the Location calcultor starts searching
+    //*/This method is for when the Location calcultor starts searching*/
     func startLocationManager() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -256,7 +256,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         }
     }
     
-    //This method is for when the Location calcultor stops searching
+    //*/This method is for when the Location calcultor stops searching*/
     func stopLocationManager() {
         if updatingLocation {
             locationManager.stopUpdatingLocation()
@@ -271,7 +271,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
 
 
     //MARK: - HELPER METHODS
-    //This method is what informs the user that they have denied authorization for this app to use their location
+    //*/This method is what informs the user that they have denied authorization for this app to use their location*/
     func showLocationServicesDeniedAler() {
         let alert = UIAlertController(title: "Location Services Disabled",
             message: "Please enable location services for this app in Settings.",
