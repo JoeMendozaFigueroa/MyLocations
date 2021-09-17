@@ -27,14 +27,18 @@ class LocationDetailsViewController: UITableViewController {
     
     
     //MARK: - ACTIONS
+    //This is the method for when a user selects the done button on the tab bar, it revelas the "Tagged" hud display
     @IBAction func done() {
-        navigationController?.popViewController(animated: true)
+        guard let mainView = navigationController?.parent?.view
+        else { return }
+        let hudView = HudView.hud(inview: mainView, animated: true)
+        hudView.text = "Tagged"
     }
     
     @IBAction func cancel() {
         navigationController?.popViewController(animated: true)
     }
-    
+    //This method is deals with the functionality of the main View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
     descriptionTextView.text = ""

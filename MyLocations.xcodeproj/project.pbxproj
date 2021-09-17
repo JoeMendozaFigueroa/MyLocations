@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D005BF226F4CD58001C6565 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D005BF126F4CD58001C6565 /* CategoryPickerViewController.swift */; };
+		1D005BF726F4DE20001C6565 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D005BF626F4DE20001C6565 /* HudView.swift */; };
 		1D46C9FB26F43CAD00D260EB /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */; };
 		1DD2C03826F3FD67008979BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2C03726F3FD67008979BB /* AppDelegate.swift */; };
 		1DD2C03A26F3FD67008979BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2C03926F3FD67008979BB /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		1D005BF126F4CD58001C6565 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		1D005BF626F4DE20001C6565 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		1DD2C03426F3FD67008979BB /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD2C03726F3FD67008979BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				1DD2C03926F3FD67008979BB /* SceneDelegate.swift */,
 				1DD2C03B26F3FD67008979BB /* CurrentLocationViewController.swift */,
 				1DD2C03D26F3FD67008979BB /* Main.storyboard */,
+				1D005BF626F4DE20001C6565 /* HudView.swift */,
 				1D005BF126F4CD58001C6565 /* CategoryPickerViewController.swift */,
 				1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */,
 				1DD2C04326F3FD69008979BB /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 				1DD2C03826F3FD67008979BB /* AppDelegate.swift in Sources */,
 				1DD2C04226F3FD67008979BB /* MyLocations.xcdatamodeld in Sources */,
 				1DD2C03A26F3FD67008979BB /* SceneDelegate.swift in Sources */,
+				1D005BF726F4DE20001C6565 /* HudView.swift in Sources */,
 				1D46C9FB26F43CAD00D260EB /* LocationDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
