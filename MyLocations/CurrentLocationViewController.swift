@@ -26,11 +26,24 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var placemark: CLPlacemark?
     var performingReverseGeocoding = false
     var lastGeocodingError: Error?
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLabels()//This shows the "messageLabel" text
     }
+    
+    //MARK: - VIEW
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     //MARK: - LABEL DETAILS
     //This method takes the location text and replaces the text of the "Longitutde & Latitude" Text Labels
     func updateLabels() {
@@ -105,6 +118,17 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         return line1 + "\n" + line2
     }
     
+    @objc func didTimeOut() {
+        print("*** Time Out")
+        if location == nil {
+            stopLocationManager()
+            lastLocationError = NSError(
+                domain: "MyLocationsErrorDomain",
+                code: 1,
+                userInfo: nil)
+            updateLabels()
+        }
+    }
 
     //MARK: - ACTIONS
     //This is the action method that runs various methods, once you press the "get button" at the bottom of the View Controller
@@ -212,6 +236,13 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
             updatingLocation = true
+            
+            timer = Timer.scheduledTimer(
+                timeInterval: 60,
+                target: self,
+                selector: #selector(didTimeOut),
+                userInfo: nil,
+                repeats: false)
         }
     }
     
@@ -221,6 +252,10 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             locationManager.stopUpdatingLocation()
             locationManager.delegate = nil
             updatingLocation = false
+            
+            if let timer = timer {
+                timer.invalidate()
+            }
         }
     }
 

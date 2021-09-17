@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D46C9FB26F43CAD00D260EB /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */; };
 		1DD2C03826F3FD67008979BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2C03726F3FD67008979BB /* AppDelegate.swift */; };
 		1DD2C03A26F3FD67008979BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2C03926F3FD67008979BB /* SceneDelegate.swift */; };
 		1DD2C03C26F3FD67008979BB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2C03B26F3FD67008979BB /* CurrentLocationViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		1DD2C03426F3FD67008979BB /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD2C03726F3FD67008979BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DD2C03926F3FD67008979BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				1DD2C03926F3FD67008979BB /* SceneDelegate.swift */,
 				1DD2C03B26F3FD67008979BB /* CurrentLocationViewController.swift */,
 				1DD2C03D26F3FD67008979BB /* Main.storyboard */,
+				1D46C9FA26F43CAD00D260EB /* LocationDetailsViewController.swift */,
 				1DD2C04326F3FD69008979BB /* Assets.xcassets */,
 				1DD2C04526F3FD69008979BB /* LaunchScreen.storyboard */,
 				1DD2C04826F3FD69008979BB /* Info.plist */,
@@ -144,6 +147,7 @@
 				1DD2C03826F3FD67008979BB /* AppDelegate.swift in Sources */,
 				1DD2C04226F3FD67008979BB /* MyLocations.xcdatamodeld in Sources */,
 				1DD2C03A26F3FD67008979BB /* SceneDelegate.swift in Sources */,
+				1D46C9FB26F43CAD00D260EB /* LocationDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
