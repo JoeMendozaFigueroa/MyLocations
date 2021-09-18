@@ -6,6 +6,8 @@
 //
 import CoreLocation
 import UIKit
+import CoreData
+
 
 class LocationDetailsViewController: UITableViewController {
     //*/These constant variables are the various items in the "Location Details" View Controller*/
@@ -24,35 +26,30 @@ class LocationDetailsViewController: UITableViewController {
     
     var categoryName = "No Category"
     
+    var managedObjectContext: NSManagedObjectContext!
     
+    var date = Date()
     
-    //MARK: - ACTIONS
-    /*/This is the method for when a user selects the done button on the tab bar, it revelas the "Tagged" hud display*/
-    @IBAction func done() {
-        guard let mainView = navigationController?.parent?.view
-        else { return }
-        let hudView = HudView.hud(inview: mainView, animated: true)
-        hudView.text = "Tagged"
-        afterDelay(0.6) {
-            hudView.hide()
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        /*/This constant brings you back to the search location screen after user presses done*/
-        let delayInSeconds = 0.5
-        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
-            hudView.hide()
-            self.navigationController?.popViewController(animated: true)
+    var locationToEdit: Location? {
+        didSet {
+            if let location = locationToEdit {
+                descriptionText = location.locationDescription
+                categoryName = location.category
+                date = location.date
+                coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                placemark = location.placemark
+            }
         }
     }
+    var descriptionText = ""
     
-    @IBAction func cancel() {
-        navigationController?.popViewController(animated: true)
-    }
     /*/This method is deals with the functionality of the main View Controller*/
     override func viewDidLoad() {
         super.viewDidLoad()
-    descriptionTextView.text = ""
+        if let location = locationToEdit {
+            title = "Edit Location"
+        }
+    descriptionTextView.text = descriptionText
     categoryLabel.text = categoryName
     
     latitudeLabel.text = String(
@@ -67,13 +64,59 @@ class LocationDetailsViewController: UITableViewController {
         addressLabel.text = "No Address Found"
     }
     
-    dateLabel.text = format(date: Date())
+    dateLabel.text = format(date: date)
         //HIDE KEYBOARD
     let gestureRecognizer = UITapGestureRecognizer(
         target: self, action: #selector(hideKeyboard))
     gestureRecognizer.cancelsTouchesInView = false
     tableView.addGestureRecognizer(gestureRecognizer)
     }
+    
+    //MARK: - ACTIONS
+    /*/This is the method for when a user selects the done button on the tab bar, it reveals the "Tagged" hud display*/
+    @IBAction func done() {
+        guard let mainView = navigationController?.parent?.view
+        else { return }
+        let hudView = HudView.hud(inView: mainView, animated: true)
+        let location: Location
+        //This boolean changes the text of the hud to say updated when user goes into the edit screen and presses the "Done" button
+        if let temp = locationToEdit {
+            hudView.text = "Updated"
+            location = temp
+        } else {
+            hudView.text = "Tagged"
+            location = Location(context: managedObjectContext)
+        }
+        
+        location.locationDescription = descriptionTextView.text
+        location.category = categoryName
+        location.latitude = coordinate.latitude
+        location.longitude = coordinate.longitude
+        location.date = date
+        location.placemark = placemark
+        
+        do {
+            try managedObjectContext.save()
+            afterDelay(0.6) {
+                hudView.hide()
+                self.navigationController?.popViewController(animated: true)
+            }
+        } catch {
+            fatalCoreDataError(error)
+        }
+        
+        /*/This constant brings you back to the search location screen after user presses done*/
+        let delayInSeconds = 0.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+            hudView.hide()
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @IBAction func cancel() {
+        navigationController?.popViewController(animated: true)
+    }
+
     
     /*/This method hides the keyboard after you select outside the description textfield*/
     @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {

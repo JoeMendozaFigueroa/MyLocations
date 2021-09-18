@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
     //*/These are the variables that Identify the various buttons and labels on the View Controller*/
@@ -27,6 +28,8 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var performingReverseGeocoding = false
     var lastGeocodingError: Error?
     var timer: Timer?
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +91,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         }
         configureGetButton()
     }
+    
     //*/This method changes the "Get Button" label, when the App is searching for a location*/
     func configureGetButton() {
         if updatingLocation {
@@ -137,6 +141,8 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             LocationDetailsViewController
             controller.coordinate = location!.coordinate
             controller.placemark = placemark
+            
+            controller.managedObjectContext = managedObjectContext
         }
     }
     

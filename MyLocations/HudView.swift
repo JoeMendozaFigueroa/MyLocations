@@ -10,7 +10,7 @@ import UIKit
 class HudView: UIView {
     var text = ""
     //*/This method is for the design of the hud*/
-    class func hud(inview view: UIView, animated: Bool) -> HudView {
+    class func hud(inView view: UIView, animated: Bool) -> HudView {
         let hudView = HudView(frame: view.bounds)
         
         hudView.isOpaque = false
