@@ -10,6 +10,7 @@ import CoreData
 import CoreLocation
 
 class LocationsViewController: UITableViewController {
+    
     var managedObjectContext: NSManagedObjectContext!
     
     lazy var fetchedResultsController: NSFetchedResultsController<Location> = {
@@ -60,16 +61,19 @@ class LocationsViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections!.count
     }
+    
     //This method creates a title for the selected Category Group
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionInfo = fetchedResultsController.sections![section]
-        return sectionInfo.name
+        return sectionInfo.name.uppercased()
     }
-        
+    
+    //This method identifes how many rows are there in the table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
+    
     //This method fills in the Labels information for the given Cells
     override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) ->UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
@@ -79,11 +83,13 @@ class LocationsViewController: UITableViewController {
 
         return cell
     }
+    
     //This method deletes a particular row when the user slides the cell
     override func tableView (_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                              forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let location = fetchedResultsController.object(at: indexPath)
+            location.removePhotoFile()
             managedObjectContext.delete(location)
             do {
                 try managedObjectContext.save()
@@ -93,7 +99,45 @@ class LocationsViewController: UITableViewController {
         }
     }
     
-
+    //This method changes the header text of the sections of the grouped tagged items
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let labelRect = CGRect(
+            x: 15,
+            y: tableView.sectionHeaderHeight - 14,
+            width: 300,
+            height: 14)
+        
+        let label = UILabel(frame: labelRect)
+        
+        label.font = UIFont.boldSystemFont(ofSize: 11)
+        
+        label.text = tableView.dataSource!.tableView!(
+            tableView, titleForHeaderInSection: section)
+        
+        label.textColor = UIColor(white: 1.0,
+                                  alpha: 0.6)
+        
+        label.backgroundColor = UIColor.clear
+        
+        let separatorRect = CGRect(x: 15,
+                                   y: tableView.sectionHeaderHeight,
+                                   width: tableView.bounds.size.width - 15,
+                                   height: 0.5)
+        
+        let separator = UIView(frame: separatorRect)
+        
+        separator.backgroundColor = tableView.separatorColor
+        
+        let viewRect = CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.sectionHeaderHeight)
+        
+        let view = UIView(frame: viewRect)
+        
+        view.backgroundColor = UIColor(white: 0,
+                                       alpha: 0.85)
+        view.addSubview(label)
+        view.addSubview(separator)
+        return view
+    }
     
     //MARK: - NAVIGATION
     //This method is for the functionality of the segue that takes you back to the Tag View Controller, which changes the title to "Edit Location"
@@ -109,12 +153,15 @@ class LocationsViewController: UITableViewController {
         }
     }
 }
+
 // MARK: - NSFETCHED RESULTS CONTROLLER DELEGATE EXTENSION
+
 extension LocationsViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("*** controllerWillChangeContent")
         tableView.beginUpdates()
     }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any,
                     at indexPath: IndexPath?,
